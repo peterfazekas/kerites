@@ -1,6 +1,7 @@
 package hu.street.controler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -59,7 +60,7 @@ public class Street {
 				.orElse("Nincs ilyen telek.");
 	}
 	
-	public String getNoewColorProposal(int number) {
+	public String getNewColorProposal(int number) {
 		return String.format("Egy lehetséges festési szín: %c", getNewColor(number));
 	}
 	
@@ -97,5 +98,17 @@ public class Street {
 	
 	private Optional<Lot> getLotByNumber(int number) {
 		return lots.stream().filter(i -> i.getNumber() == number).findAny();
+	}
+	
+	public List<String> printOddSideDetails() {
+		return Arrays.asList(printOddSideFenceColors(), printOddSideNumbers());
+	}
+	
+	private String printOddSideFenceColors() {
+		return getOddLots().stream().map(Lot::printColor).collect(Collectors.joining());
+	}
+	
+	private String printOddSideNumbers() {
+		return getOddLots().stream().map(Lot::printNumber).collect(Collectors.joining());
 	}
 }

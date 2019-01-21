@@ -1,5 +1,8 @@
 package hu.street.model.domain;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class Lot {
 
 	private final boolean odd;
@@ -30,4 +33,14 @@ public class Lot {
 		return number;
 	}
 	
+	public String printColor() {
+		return IntStream.range(0, length).mapToObj(i -> String.valueOf(color)).collect(Collectors.joining());
+	}
+	
+	public String printNumber() {
+		String printNum = String.valueOf(number);
+		return printNum + IntStream.range(printNum.length(), length)
+								.mapToObj(i -> " ")
+								.collect(Collectors.joining());
+	}
 }

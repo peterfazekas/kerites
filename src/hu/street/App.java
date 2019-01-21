@@ -3,16 +3,19 @@ package hu.street;
 import hu.street.controler.Street;
 import hu.street.model.service.Console;
 import hu.street.model.service.DataReader;
+import hu.street.model.service.ResultWriter;
 
 public class App {
 
 	private final Street street;
 	private final Console console;
+	private final ResultWriter result;
 	
 	public App() {
 		DataReader data = new DataReader();
 		street = new Street(data.getLots("kerites.txt"));
 		console = new Console();
+		result = new ResultWriter("utcakep.txt");
 	}
 	
 	public static void main(String[] args) {
@@ -25,6 +28,7 @@ public class App {
 		System.out.println("4. feladat: " + street.getSameColorFenceInOddSideLotNumber());
 		int number = console.readInt("5. feladat: Adjon meg egy házszámot: ");
 		System.out.println(street.getFenceColorByNumber(number));
-		System.out.println(street.getNoewColorProposal(number));
+		System.out.println(street.getNewColorProposal(number));
+		result.writeAll(street.printOddSideDetails());
 	}
 }
